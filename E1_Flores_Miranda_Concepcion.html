@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+    <script>
+      class PriorityQueue {
+    constructor() {
+      this.heap = [];
+    }
+  
+    push(item) {
+      let heap = this.heap;
+      let i = heap.length++;
+      let j;
+      //console.log(i)
+  
+      while(i) {
+        j = Math.floor((i - 1) / 2);
+        if(heap[j] <= item) break;
+        heap[i] = heap[j]
+        i = j;
+      }
+      //console.log("ddd",heap[i]);
+  
+      heap[i] = item;
+    }
+
+    pop() {
+      let heap = this.heap;
+      let top = heap[0];
+      let popped = heap.pop();
+  
+      let i = 0;
+      let k = Math.floor(heap.length / 2);
+      //console.log("k",k);1
+      //console.log("heap",heap);
+      let j;
+  
+      while(i < k) {
+        j = (i * 2) + 1;
+        if(heap[j+1] < heap[j]) ++j;
+  
+        if(popped <= heap[j]) break;
+  
+        heap[i] = heap[j];
+        //console.log("heap",heap[i]);
+        i = j;
+        //console.log(i); 1
+      }
+  
+      if(heap.length) {
+        heap[i] = popped;
+      }
+  
+      return top;
+    }
+
+    size() {
+      return this.heap.length;
+    }
+
+    top() {
+      return this.heap[0];
+    }
+  }
+  
+  const pq = new PriorityQueue();
+  pq.push(10);
+  pq.push(11);
+  pq.push(2);
+  pq.push(6);
+  
+  console.log(pq.top()); // 30
+  console.log(pq.top()); 
+  console.log(pq.pop()); // 30
+  console.log(pq.top()); // 10
+    </script>
+</body>
+</html>
